@@ -1,0 +1,37 @@
+name: likelihood_mip
+channels:
+  - conda-forge
+dependencies:
+  - gcc=12
+  - gxx=12
+  - ca-certificates
+  - certifi
+  - openssl
+  - pandas
+  - xarray
+  - healpy
+  - wandb
+  - h5py
+  - pyarrow
+  - intake[version='<1']
+  - loguru
+  - zarr
+  - intake-xarray[version='<1']
+  - cfgrib
+  - nvtx
+  - requests
+  - aiohttp
+  - matplotlib
+  - cartopy
+  - cuda-toolkit=12.1
+  - pybind11
+  - tqdm
+  - pip
+  - pip:
+      - torch==2.5.1+cu121
+      - torchvision==0.20.1+cu121
+      - lightning==2.6.1
+      - pre_commit
+      - https://github.com/NVlabs/earth2grid/archive/main.tar.gz
+      - gribscan
+      - fastparquet
