@@ -1,0 +1,21 @@
+model_key: ifs_9_fesom_5_production
+
+load:
+  cat_keys: ["IFS", "IFS_9-FESOM_5-production", "2D_hourly_healpix512_2020s"]
+  cat_url: "https://data.nextgems-h2020.eu/catalog.yaml"
+  var: ttr
+  cell_var: value
+
+intake_args: {}
+
+histogram_matcher:
+  path: ${oc.env:HOME}/likelihoods-km-scale-models/data/ifs_to_goes_lookup_table.npz
+
+postprocess:
+  - _target_: src.intercomparison.GetOLRFromTTR
+    var: ttr
+    olr_name: rlut
+    seconds_per_timestep: 3600
+
+  # add crs to the new dataset
+  - _target_: src.intercomparison.AddCRS

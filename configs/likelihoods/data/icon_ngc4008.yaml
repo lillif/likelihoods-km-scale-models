@@ -1,0 +1,16 @@
+model_key: icon_ngc4008
+
+load:
+  cat_keys: ["EU", "icon_ngc4008"]
+  cat_url: "https://digital-earths-global-hackathon.github.io/catalog/catalog.yaml"
+  var: rlut
+  cell_var: cell
+
+intake_args:
+  zoom: 9
+  time: PT15M
+
+time_step_multiplier: 4
+
+histogram_matcher:
+  path: ${oc.env:HOME}/likelihoods-km-scale-models/data/icon_to_goes_lookup_table.npz

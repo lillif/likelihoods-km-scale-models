@@ -1,0 +1,4 @@
+wandb:
+  project: project-name
+  entity: wandb-organisation
+  mode: offline

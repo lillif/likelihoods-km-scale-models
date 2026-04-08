@@ -1,0 +1,23 @@
+time:
+  start: "2024-01-01"
+  end: "2024-12-31"
+  step: 1
+
+# DO NOT CHANGE PATCHES -- these are set to cover the same region as the GOES data
+patches:
+  lat_bounds: [-24.5, 24.5] # this is not used by the new dataset
+  lon_bounds: [227, 343] # this is not used by the new dataset
+  size: 64
+  stride: 32 # this is not used by the new dataset (uses precomputed patch centers)
+  centers_path: ${oc.env:HOME}/likelihoods-km-scale-models/data/patch_centers.npy
+
+dataloader:
+  batch_size: 266
+  num_workers: 32 #32 # trying 64 in notebook right now 
+  multiprocessing_context: 'spawn' # required for dask / xarray / multiprocessing
+  prefetch_factor: 2
+
+accumulate:
+  mode: "day"   # "all" | "month" | "day"
+
+use_dataset_cache: true

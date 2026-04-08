@@ -1,0 +1,15 @@
+dataloader:
+  _target_: src.nsf.olr_data.OlrDataModule
+  data_dir: data/goes/patches64_stride32/
+  dataset_kwargs:
+    transforms:
+      _target_: src.nsf.olr_data.OlrTransform
+      normalise_method: minmax
+      normalise_path: results/normalisation/minmax_goes_first15dayseachmonth.json
+      random_crop: True
+      crop_size: 32
+    npz_image_key: olr
+  batch_size: 64
+  num_workers: 16
+  pin_memory: True # puts fetched data Tensors in pinned memory, enabling faster data transfer to CUDA-enabled GPU's
+  prefetch_factor: 4

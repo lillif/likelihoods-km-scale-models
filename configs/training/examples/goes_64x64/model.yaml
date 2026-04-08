@@ -1,0 +1,25 @@
+model:
+  _target_: src.nsf.experiments.images_olr.Flow
+  create_transform_kwargs:
+    levels: 3  # 3 for CIFAR-10, 4 for ImageNet64
+    multi_scale: True
+    steps_per_level: 7
+    hidden_channels: 96
+    preprocessing: olr  # no preprocessing
+  transform_step_kwargs:
+    actnorm: True  # like Glow, each step starts with ActNorm
+    coupling_layer_type: rational_quadratic_spline
+    spline_params:
+      num_bins: 4  # 2 & 4 for CIFAR-10, 8 for ImageNet64
+      tail_bound: 1.0
+      min_bin_width: 1e-3
+      min_bin_height: 1e-3
+      min_derivative: 1e-3
+      apply_unconditional_transform: False # do not use the unconditional transform
+    use_resnet: True
+    num_res_blocks: 3
+    resnet_batchnorm: True
+    dropout_prob: 0.0  # no dropout currently, was 0.2 for CIFAR-10, 0.1 for ImageNet64 (5-bit) and 0.0 for ImageNet64 (8-bit) TODO what does it do?
+  dataset_dims: [1, 64, 64]
+  data_key: image
+  sample_interval: 1 # sample images every epoch
