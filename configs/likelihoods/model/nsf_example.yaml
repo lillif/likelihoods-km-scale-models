@@ -1,0 +1,8 @@
+nsf_model_key: nsf-goes-64x64
+
+checkpoint: /path/to/checkpoint.ckpt
+model_config: ${oc.env:HOME}/likelihoods-km-scale-models/configs/training/examples/goes_64x64/model.yaml
+
+normalisation:
+  method: minmax
+  path: ${oc.env:HOME}/likelihoods-km-scale-models/data/goes_minmax_2024.json

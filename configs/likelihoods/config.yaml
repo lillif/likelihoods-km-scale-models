@@ -1,0 +1,6 @@
+defaults:
+  - analysis: default
+  - data:  icon_ngc4008
+  - model: nsf_goes_64x64_hogncq16
+  - paths: default
+  - _self_

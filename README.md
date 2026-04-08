@@ -20,9 +20,9 @@ NextGEMS production simulations for ICON and IFS are archived by the German Clim
 
 GOES-16 OLR data was derived from Level 1b radiance measurements which were supplied by the National Oceanic and Atmospheric Administration (NOAA) and can be downloaded at https://console.cloud.google.com/marketplace/product/noaa-public/goes.
 
-### Pre-patched datasets for experiments
+### Pre-patched datasets for model training
 
-For efficient NSF model training and analysis, we created pre-patched versions of the datasets. The expected folder structure is:
+For efficient NSF model training, we pre-patched the GOES dataset. The expected folder structure is:
 
 ```
 /path/to/datasets/
@@ -60,3 +60,12 @@ Configuration files for likelihood estimation can be found in `configs/likelihoo
 ├── paths/        # base directory locations
 └── config.yaml   # top-level config composing the above via Hydra defaults
 ```
+
+To compute likelihoods for the ICON model in 2024 using a trained NSF model checkpoint run:
+
+```
+python compute_likelihoods.py data=icon_ngc4008 model=nsf_example paths=default
+```
+
+The config file `configs/model/nsf_example.yaml` shows the format required to use an existing NSF checkpoint.
+Note that filepaths need to be correctly set in `configs/path` and `.env`. 

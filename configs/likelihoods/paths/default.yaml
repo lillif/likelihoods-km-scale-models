@@ -1,2 +1,2 @@
 nsf_dir: ${oc.env:HOME}/likelihoods-km-scale-models
-mip_dir: ${oc.env:MIP_DIR}
+mip_dir: ${oc.env:LIKELIHOODS_SAVE_DIR}
