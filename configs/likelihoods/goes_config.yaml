@@ -1,0 +1,8 @@
+defaults:
+  - data: goes16
+  - model: nsf_example
+  - paths: default
+  - _self_
+
+accumulate:
+  mode: "day"   # "all" | "month" | "day"
