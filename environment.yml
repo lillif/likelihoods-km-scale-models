@@ -38,5 +38,4 @@ dependencies:
       - gribscan
       - fastparquet
       - global-land-mask
-      - python-dotenv
       - autoroot

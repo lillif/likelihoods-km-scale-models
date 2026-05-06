@@ -71,7 +71,10 @@ def main(cfg: DictConfig):
         fill_nan=True,
         load_coords=True,
     )
-
+    
+    # -----------------------
+    # dataset and dataloader
+    # -----------------------
     # load precomputed patch centers
     patch_centers = np.load(cfg.analysis.patches.centers_path)
 

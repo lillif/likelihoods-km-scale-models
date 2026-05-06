@@ -1,11 +1,11 @@
 dataloader:
   _target_: src.nsf.olr_data.OlrDataModule
-  data_dir: data/goes/patches64_stride32/
+  data_dir: ${oc.env:DATAROOT}/goes/patches64_stride32/
   dataset_kwargs:
     transforms:
       _target_: src.nsf.olr_data.OlrTransform
       normalise_method: minmax
-      normalise_path: results/normalisation/minmax_goes_first15dayseachmonth.json
+      normalise_path: ${oc.env:HOME}/likelihoods-km-scale-models/data/goes_minmax_2024.json
       random_crop: True
       crop_size: 32
     npz_image_key: olr
