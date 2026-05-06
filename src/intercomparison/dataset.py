@@ -57,7 +57,7 @@ def extract_local_xy_patch(
     return pix
 
 
-def extract_patch_pixels(patch_centers, nside, pad):
+def extract_patch_pixels(patch_centers, nside: int, pad: int):
     zoom = int(np.log2(nside))
     n_pix = 12 * 4**zoom
     pixels_xy = torch.arange(0, n_pix)
@@ -142,12 +142,15 @@ class ModelHealpixDataset(Dataset):
     def _unravel_index(self, idx):
         """
         Convert a flat index into time and patch indices.
+        NOTE: this assumes that the dataset is ordered such that 
+        all patches for a given time step are contiguous, 
+        and that time steps are ordered sequentially.
+        If the dataset is not ordered in this way, 
+        or only a subset of time steps or patches should be included
+        (e.g. for a train/val/test split), 
+        this function will need to be modified accordingly.
         """
         time_idx = idx // self.n_patches
-        ## TODO: to split times across train / val / test datasets:
-        ## create list of time_idxes in dataloader, supply to dataset
-        ## and use time_idx to get time_idxes[time_idx]
-        ## which is used to index the xarray ds
         patch_idx = idx % self.n_patches
         return time_idx, patch_idx
 
@@ -179,16 +182,6 @@ class ModelHealpixDataset(Dataset):
             else:
                 olr = torch.Tensor(ds_i[self.olr_key].values)
                 time_tensor = self._time_to_tensor(ds_i.time.values)
-
-            """
-            lat = torch.Tensor(ds_i["lat"].values)
-            lon = torch.Tensor(ds_i["lon"].values)
-            patch_pixels = self.patch_pixels[patch_idx]
-
-            olr = torch.Tensor(ds_i[self.olr_key].isel(pixels=patch_pixels).values)
-            lat = torch.Tensor(ds_i["lat"].isel(pixels=patch_pixels).values)
-            lon = torch.Tensor(ds_i["lon"].isel(pixels=patch_pixels).values)
-            """
 
         with nvtx.annotate("extract patch", color="orange"):
             # extract olr, lat and lon patch from pixel indices

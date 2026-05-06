@@ -10,6 +10,8 @@ dependencies:
   - pandas
   - xarray
   - healpy
+  - numpy
+  - scipy
   - wandb
   - h5py
   - pyarrow
@@ -35,3 +37,6 @@ dependencies:
       - https://github.com/NVlabs/earth2grid/archive/main.tar.gz
       - gribscan
       - fastparquet
+      - global-land-mask
+      - python-dotenv
+      - autoroot

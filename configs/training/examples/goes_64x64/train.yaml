@@ -18,13 +18,9 @@ monitor_metric: val/loss  # Decide on metric to log
 # -------- Hydra Output Directory --------
 now_dir: ${now:%Y-%m-%d}/${now:%H-%M-%S}
 
-# hydra:
-#   run:
-#     dir: /path/to/hydra/outputs/${experiment_name}/${now_dir}
 hydra:
   run:
-    dir: /work/bb1153/b382145/computer_vision/hydra/outputs/${experiment_name}/${now_dir}
-
+    dir: ${oc.env:HOME}/likelihoods-km-scale-models/hydra/outputs/${experiment_name}/${now_dir}
 # -------- Training details  --------
 gpus: 1
 max_epochs: 20 # Define number of training epochs

@@ -39,6 +39,9 @@ def get_log_probs(
 ):
     model.eval()
 
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
     all_columns = {
         "year": [],
         "month": [],
@@ -108,7 +111,7 @@ def get_log_probs(
                     for k in all_columns:
                         all_columns[k] = []
             with nvtx.annotate(f"Processing batch {i}", color="blue"):
-                x = item["image"].to("cuda", non_blocking=True)
+                x = item["image"].to(device, non_blocking=True)
 
                 lat = item["lat"]
                 lon = item["lon"]

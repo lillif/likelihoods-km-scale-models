@@ -8,16 +8,10 @@ from loguru import logger
 
 
 def get_patch_likelihood_distribution(df, column="likelihood"):
-    # Group by unique (lon, lat) pairs
+    # group by unique (lon, lat) pairs
     grouped = df.groupby(["lon", "lat"])
 
-    # Get likelihood distribution per group (as lists of values)
-    grouped[column].apply(list)
-
-    # Calculate the mean likelihood per group
-    grouped[column].mean().reset_index()
-
-    # If you want both distributions and mean together
+    # summary returns distributions and mean together
     summary = (
         grouped[column]
         .agg(values=list, mean="mean")  # full distribution as list  # mean likelihood

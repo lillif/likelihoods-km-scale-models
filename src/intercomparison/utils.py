@@ -210,16 +210,16 @@ def add_crs(ds, nested: bool = True):
 
 
 class AddCRS:
+    """
+    Add a coordinate reference system (CRS) to the dataset with the appropriate attributes for healpix.
+    This is a class wrapper for the 'add_crs' function to enable 
+    instantiation within the hydra pipeline.
+    """
     def __init__(self, nested: bool = True):
         self.nested = nested
 
     def __call__(self, ds: xr.Dataset, var: str) -> xr.Dataset:
-        ds.coords["crs"] = np.array([np.nan])
-        ds.coords["crs"].attrs["grid_mapping_name"] = "healpix"
-        nside = np.sqrt(len(ds.cell) / 12).astype(int)
-        ds.coords["crs"].attrs["healpix_nside"] = nside
-        ds.coords["crs"].attrs["healpix_order"] = "nest" if self.nested else "ring"
-        return ds, var
+        return add_crs(ds, nested=self.nested), var
 
 
 def add_latlon(ds: xr.Dataset, nested: bool = True):
@@ -240,20 +240,16 @@ def add_latlon(ds: xr.Dataset, nested: bool = True):
 
 
 class AddLatLon:
+    """
+    Add latlon coordinates to the healpix dataset.
+    This is a class wrapper for the 'add_latlon' function to enable 
+    instantiation within the hydra pipeline.
+    """
     def __init__(self, nested: bool = True):
         self.nested = nested
 
     def __call__(self, ds: xr.Dataset, var: str) -> xr.Dataset:
-        cell = ds["cell"].values
-        nside = np.sqrt(len(cell) / 12).astype(int)
-        theta, phi = hp.pix2ang(nside, cell, nest=self.nested)
-        lat = 90.0 - np.degrees(theta)
-        lon = np.degrees(phi)
-        ds = ds.assign_coords(
-            lat=("cell", lat),
-            lon=("cell", lon),
-        )
-        return ds, var
+        return add_latlon(ds, nested=self.nested), var
 
 
 class TemporalResample:

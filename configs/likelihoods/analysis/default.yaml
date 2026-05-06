@@ -13,7 +13,7 @@ patches:
 
 dataloader:
   batch_size: 266
-  num_workers: 32 #32 # trying 64 in notebook right now 
+  num_workers: 32
   multiprocessing_context: 'spawn' # required for dask / xarray / multiprocessing
   prefetch_factor: 2
 

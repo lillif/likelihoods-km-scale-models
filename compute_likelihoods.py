@@ -17,22 +17,6 @@ from src.likelihoods import get_log_probs
 from src.nsf.olr_data import OlrTransform
 
 
-def apply_postprocessing(ds: xr.Dataset, olr_key: str, postprocess_cfg: dict):
-    """
-    Apply a sequence of postprocessing functions to an xarray Dataset.
-    """
-    if postprocess_cfg is None:
-        logger.debug("No post-processing steps specified, skipping post-processing.")
-        return ds, olr_key
-
-    for step_cfg in postprocess_cfg:
-        logger.debug(f"Applying post-processing step: {step_cfg._target_}")
-        fn = instantiate(step_cfg)
-        ds, olr_key = fn(ds, olr_key)
-
-    return ds, olr_key
-
-
 @hydra.main(
     version_base=None, config_path="./configs/likelihoods", config_name="config"
 )

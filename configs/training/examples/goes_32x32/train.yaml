@@ -18,12 +18,10 @@ monitor_metric: val/loss  # Decide on metric to log
 # -------- Hydra Output Directory --------
 now_dir: ${now:%Y-%m-%d}/${now:%H-%M-%S}
 
-# hydra:
-#   run:
-#     dir: /path/to/hydra/outputs/${experiment_name}/${now_dir}
 hydra:
   run:
-    dir: /work/bb1153/b382145/computer_vision/hydra/outputs/${experiment_name}/${now_dir}
+    dir: ${oc.env:HOME}/likelihoods-km-scale-models/hydra/outputs/${experiment_name}/${now_dir}
+
 
 # -------- Training details  --------
 gpus: 1
@@ -38,6 +36,6 @@ strategy: auto # ddp for multi-gpu, auto or single_device for single-gpu,
 num_nodes: 1 # Define number of GPU nodes for distributed training
 
 # -------- Data details  --------
-limit_train_batches: 1.0 # Limits the amount of training data. Selection random and changing across epochs.
-limit_val_batches: 1.0 # ca 300000 val patches, reduce to 150000 for faster validation
+limit_train_batches: 1.0
+limit_val_batches: 1.0
 limit_test_batches: 1.0

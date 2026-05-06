@@ -7,9 +7,6 @@ from __future__ import annotations
 import os
 import sys
 
-os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
-
-
 import autoroot  # for imports from src
 import dotenv
 import hydra
@@ -40,7 +37,7 @@ torch.set_float32_matmul_precision("high")
 
 @hydra.main(
     version_base="1.3",
-    config_path="configs/training/goes_small_2020",
+    config_path="configs/training/examples/goes_64x64",
     config_name="train.yaml",
 )
 def main(config: DictConfig):
